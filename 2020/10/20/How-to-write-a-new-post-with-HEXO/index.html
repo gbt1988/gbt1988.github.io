@@ -68,14 +68,20 @@
   </div>
 
   <!-- 文章目录 -->
-  
+  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#First-step"><span class="toc-text">First step:</span></a></li></ol>
 
   <div class="post-content">
-    <p>First step:</p>
-<ol>
+    <h3 id="First-step"><a href="#First-step" class="headerlink" title="First step:"></a>First step:</h3><ol>
 <li><code>Hexo New</code> to create a new post</li>
 <li>wirte the content in the .md file</li>
-<li>You should put the IMG files into the corresponding file withe a same name and use <code>
+<li>You should put the IMG files into the corresponding file withe a same name and use<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% asset_img learn.jpg learn&#125;</span><br></pre></td></tr></table></figure>
+to ref the picture.</li>
+<li>After editing the file ,you should save it ,and run ‘hexo generate’ to gererate the static files.</li>
+<li>Then you can use hexo deploy to deploy your blog.</li>
+</ol>
+<p>Here is some of the Hexo commands,there’s still an abbrevated version of these commands.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Commands:</span><br><span class="line">  clean     Remove generated files and cache.</span><br><span class="line">  config    Get or set configurations.</span><br><span class="line">  deploy    Deploy your website.</span><br><span class="line">  generate  Generate static files.</span><br><span class="line">  help      Get help on a command.</span><br><span class="line">  init      Create a new Hexo folder.</span><br><span class="line">  list      List the information of the site</span><br><span class="line">  migrate   Migrate your site from other system to Hexo.</span><br><span class="line">  new       Create a new post.</span><br><span class="line">  publish   Moves a draft post from _drafts to _posts folder.</span><br><span class="line">  render    Render files with renderer plugins.</span><br><span class="line">  server    Start the server.</span><br><span class="line">  version   Display version information.</span><br><span class="line"></span><br><span class="line">Global Options:</span><br><span class="line">  --config  Specify config file instead of using _config.yml</span><br><span class="line">  --cwd     Specify the CWD</span><br><span class="line">  --debug   Display all verbose messages in the terminal</span><br><span class="line">  --draft   Display draft posts</span><br><span class="line">  --safe    Disable all plugins and scripts</span><br><span class="line">  --silent  Hide output on console</span><br></pre></td></tr></table></figure>
+
   </div>
   <div class="post-meta">
     <span class="post-time" style="color:#646060;font-size:13px">2020-10-20</span>
