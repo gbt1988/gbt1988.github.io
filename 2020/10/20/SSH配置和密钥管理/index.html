@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  
+  <title>SSH配置和密钥管理 - Gbt1988</title>
+  <link rel="icon" href="https://i.imgur.com/SrZt9VU.jpg" type="image/x-icon">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  
+  <meta name="keywords" content=>
+  
+  
+  
+    <link rel="alternate" href="/atom.xml " title="Gbt1988" type="application/atom+xml">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-159316010-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-159316010-1');
+</script>
+
+  <body>
+    <div class="container">
+      <header class="header">
+  <div class="blog-title">
+    <a href="/" class="logo">Gbt1988</a>
+    <div class="subtitle"></div>
+  </div>
+  <nav class="navbar">
+    <ul class="menu">
+      
+        <li class="menu-item">
+          <a href="/" class="menu-item-link">主页</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/categories/%E6%9C%AB%E6%97%A5%E5%85%B1%E8%AF%86" class="menu-item-link">末日共识</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/about" class="menu-item-link">关于</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="https://github.com/gbt1988" target="_blank" rel="noopener" class="menu-item-link">Github</a>
+        </li>
+      
+    </ul>
+  </nav>
+</header>
+
+<article class="post">
+  <div class="post-title">
+    <h1 class="article-title">SSH配置和密钥管理</h1>
+  </div>
+
+  <!-- 文章目录 -->
+  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#检查存在的SSH-key"><span class="toc-text">检查存在的SSH key</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#生成新的SSH-key"><span class="toc-text">生成新的SSH key</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设置或修改密码-需要输入指定的私钥文件名"><span class="toc-text">设置或修改密码,需要输入指定的私钥文件名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加SSH-key-到-SSH-agent"><span class="toc-text">添加SSH key 到 SSH-agent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#检查SSH连接是否建立"><span class="toc-text">检查SSH连接是否建立</span></a></li></ol>
+
+  <div class="post-content">
+    <h3 id="检查存在的SSH-key"><a href="#检查存在的SSH-key" class="headerlink" title="检查存在的SSH key"></a>检查存在的SSH key</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -al ~&#x2F;.ssh</span><br></pre></td></tr></table></figure>
+
+<h3 id="生成新的SSH-key"><a href="#生成新的SSH-key" class="headerlink" title="生成新的SSH key"></a>生成新的SSH key</h3><p>粘贴以下文本到命令行，把email地址替换成自己到地址，或任意标签。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 4096 -C &quot;your_email@example.com&quot;</span><br></pre></td></tr></table></figure>
+<p>提示选择key的保存位置时，按确认键。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; Enter a file in which to save the key (&#x2F;Users&#x2F;you&#x2F;.ssh&#x2F;id_rsa): [Press enter]</span><br></pre></td></tr></table></figure>
+<p>按照提示设置密码即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; Enter passphrase (empty for no passphrase): [Type a passphrase]</span><br><span class="line">&gt; Enter same passphrase again: [Type passphrase again]</span><br></pre></td></tr></table></figure>
+<h3 id="设置或修改密码-需要输入指定的私钥文件名"><a href="#设置或修改密码-需要输入指定的私钥文件名" class="headerlink" title="设置或修改密码,需要输入指定的私钥文件名"></a>设置或修改密码,需要输入指定的私钥文件名</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -p</span><br><span class="line"># Start the SSH key creation process</span><br><span class="line">&gt; Enter file in which the key is (&#x2F;Users&#x2F;you&#x2F;.ssh&#x2F;id_rsa): [Hit enter]</span><br><span class="line">&gt; Key has comment &#39;&#x2F;Users&#x2F;you&#x2F;.ssh&#x2F;id_rsa&#39;</span><br><span class="line">&gt; Enter new passphrase (empty for no passphrase): [Type new passphrase]</span><br><span class="line">&gt; Enter same passphrase again: [One more time for luck]</span><br><span class="line">&gt; Your identification has been saved with the new passphrase.</span><br></pre></td></tr></table></figure>
+<p>第一次使用sshkey会提示你输出密码，如果你选择保存在keychain中，则不用再输了。<br>如果没有保存，你也可以事后在添加SSHkey到ssh-agent的时候保存。</p>
+<h3 id="添加SSH-key-到-SSH-agent"><a href="#添加SSH-key-到-SSH-agent" class="headerlink" title="添加SSH key 到 SSH-agent"></a>添加SSH key 到 SSH-agent</h3><p>1.首先后台启动ssh-agent</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ eval &quot;$(ssh-agent -s)&quot;</span><br></pre></td></tr></table></figure>
+<p>2.修改config文件</p>
+<ul>
+<li>检查是否存在该文件<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ open ~&#x2F;.ssh&#x2F;config</span><br><span class="line">&gt; The file &#x2F;Users&#x2F;you&#x2F;.ssh&#x2F;config does not exist.</span><br></pre></td></tr></table></figure></li>
+<li>如果不存在则要创建一个config文件<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ touch ~&#x2F;.ssh&#x2F;config</span><br></pre></td></tr></table></figure></li>
+<li>修改config文件，替换id_rsa为你要添加的key<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Host *</span><br><span class="line">  AddKeysToAgent yes</span><br><span class="line">  UseKeychain yes</span><br><span class="line">  IdentityFile ~&#x2F;.ssh&#x2F;id_rsa</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>3.用mac自带的ssh-add工具添加你的SSH 私钥并且保存密码在keychain中,把id_rsa替换为你要添加的key</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-add -K ~&#x2F;.ssh&#x2F;id_rsa</span><br></pre></td></tr></table></figure>
+<p>注： -K选项，是mac标准自带的，可以在添加SSHkey到 ssh-agent时，保存密码到keychain中。man ssh-add 可以查看ssh-add命令到详细用法。·</p>
+<h3 id="检查SSH连接是否建立"><a href="#检查SSH连接是否建立" class="headerlink" title="检查SSH连接是否建立"></a>检查SSH连接是否建立</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">··</span><br></pre></td></tr></table></figure>
+
+  </div>
+  <div class="post-meta">
+    <span class="post-time" style="color:#646060;font-size:13px">2020-10-20</span>
+  </div>
+
+  <div class="post-footer">
+    
+
+    <a href="#top" class="top">返回顶部</a>
+  </div>
+</article>
+
+<!-- 评论插件 -->
+
+<footer>
+  2020
+  <span class="author">
+    Gbt1988
+  </span>
+</footer>
+
+
+    </div>
+  </body>
+</html>
